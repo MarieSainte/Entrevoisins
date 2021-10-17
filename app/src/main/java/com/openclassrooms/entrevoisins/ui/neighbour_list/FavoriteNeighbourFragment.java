@@ -32,7 +32,7 @@ public class FavoriteNeighbourFragment extends Fragment {
 
     /**
      * Create and return a new instance
-     * @return @{@link NeighbourFragment}
+     * @return @{@link FavoriteNeighbourFragment}
      */
     public static FavoriteNeighbourFragment newInstance() {
         FavoriteNeighbourFragment fragment = new FavoriteNeighbourFragment();
@@ -65,12 +65,11 @@ public class FavoriteNeighbourFragment extends Fragment {
 
             @Override
             public void onCellClick(Neighbour neighbour) {
+                DetailsActivity.setUser(neighbour);
                 Intent intent = new Intent(getActivity(),DetailsActivity.class);
                 startActivity(intent);
             }
         });
-
-
 
         mRecyclerView.setAdapter(adapter);
     }
