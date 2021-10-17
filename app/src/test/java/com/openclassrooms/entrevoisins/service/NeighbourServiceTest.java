@@ -48,7 +48,7 @@ public class NeighbourServiceTest {
     public void getFavoriteNeighboursWithSuccess() {
         assertTrue(service.getFavoriteNeighbours().isEmpty());
         Neighbour favoriteNeighbour = service.getNeighbours().get(0);
-        favoriteNeighbour.setFavorite(true);
+        service.addFavoriteNeighbour(favoriteNeighbour);
         assertTrue(service.getFavoriteNeighbours().contains(favoriteNeighbour));
     }
 
@@ -58,5 +58,21 @@ public class NeighbourServiceTest {
                 "+33 6 86 57 90 14",  "Bonjour !Je souhaiterais faire de la marche.");
         service.createNeighbour(neighbourTest);
         assertTrue(service.getNeighbours().contains(neighbourTest));
+    }
+    
+    @Test
+    public void addFavoriteNeighbourWithSuccess() {
+        Neighbour favoriteNeighbourTest = service.getNeighbours().get(1);
+        assertFalse(service.getFavoriteNeighbours().contains(favoriteNeighbourTest));
+        service.addFavoriteNeighbour(favoriteNeighbourTest);
+        assertTrue(service.getFavoriteNeighbours().contains(favoriteNeighbourTest));
+    }
+    @Test
+    public void deleteFavoriteNeighbourWithSuccess() {
+        Neighbour favoriteNeighbourTest = service.getNeighbours().get(0);
+        service.addFavoriteNeighbour(favoriteNeighbourTest);
+        assertTrue(service.getFavoriteNeighbours().contains(favoriteNeighbourTest));
+        service.deleteFavoriteNeighbour(favoriteNeighbourTest);
+        assertFalse(service.getFavoriteNeighbours().contains(favoriteNeighbourTest));
     }
 }
