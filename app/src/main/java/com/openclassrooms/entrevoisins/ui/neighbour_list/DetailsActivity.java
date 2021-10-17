@@ -13,6 +13,8 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.openclassrooms.entrevoisins.R;
 import com.openclassrooms.entrevoisins.model.Neighbour;
+import com.openclassrooms.entrevoisins.di.DI;
+import com.openclassrooms.entrevoisins.service.NeighbourApiService;
 
 import butterknife.BindDrawable;
 import butterknife.BindView;
@@ -49,8 +51,7 @@ public class DetailsActivity extends AppCompatActivity {
     ImageView img_star;
 
     static Neighbour mNeighbour;
-
-
+    private NeighbourApiService mApiService;
 
 
 
@@ -58,6 +59,7 @@ public class DetailsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
+        mApiService = DI.getNeighbourApiService();
         ButterKnife.bind(this);
         init();
     }
@@ -84,11 +86,11 @@ public class DetailsActivity extends AppCompatActivity {
     @OnClick(R.id.view_favorite)
     void buttonClick(){
         if (mNeighbour.isFavorite()){
-            mNeighbour.setFavorite(false);
+            mApiService.deleteFavoriteNeighbour(mNeighbour);
             DrawableCompat.setTint(img_star.getDrawable(), ContextCompat.getColor(this, R.color.grey));
         }
         else{
-            mNeighbour.setFavorite(true);
+            mApiService.addFavoriteNeighbour(mNeighbour);
             DrawableCompat.setTint(img_star.getDrawable(), ContextCompat.getColor(this, R.color.yellow));
         }
     }
